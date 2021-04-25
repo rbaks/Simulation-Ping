@@ -4,32 +4,32 @@
 
 Avec default ARP Table pour tous le Computers
 ```java
-            Computer c1 = new Computer("C1", "192.168.10.3/8", "00:0a:95:9d:68:16");
-            c1.setPorts(new String[] {"f0/0",  "f0/1"});
+Computer c1 = new Computer("C1", "192.168.10.3/8", "00:0a:95:9d:68:16");
+c1.setPorts(new String[] {"f0/0",  "f0/1"});
 
-            Computer c2 = new Computer("C2", "192.168.10.2/8", "00:0a:95:9d:68:15");
-            c2.setPorts(new String[] {"f0/0",  "f0/1"});
+Computer c2 = new Computer("C2", "192.168.10.2/8", "00:0a:95:9d:68:15");
+c2.setPorts(new String[] {"f0/0",  "f0/1"});
             
-            Computer c3 = new Computer("C3", "192.168.10.4/8", "00:0a:95:9d:68:14");
-            c3.setPorts(new String[] {"f0/0",  "f0/1"});
+Computer c3 = new Computer("C3", "192.168.10.4/8", "00:0a:95:9d:68:14");
+c3.setPorts(new String[] {"f0/0",  "f0/1"});
             
-            Map<IPAddress, MACAddress> defaultArpTable = new HashMap<>();
-            defaultArpTable.put(new IPAddressString("192.168.10.3/8").getAddress(), new MACAddressString("00:0a:95:9d:68:16").getAddress());
-            defaultArpTable.put(new IPAddressString("192.168.10.2/8").getAddress(), new MACAddressString("00:0a:95:9d:68:15").getAddress());
-            defaultArpTable.put(new IPAddressString("192.168.10.4/8").getAddress(), new MACAddressString("00:0a:95:9d:68:14").getAddress());
+Map<IPAddress, MACAddress> defaultArpTable = new HashMap<>();
+defaultArpTable.put(new IPAddressString("192.168.10.3/8").getAddress(), new MACAddressString("00:0a:95:9d:68:16").getAddress());
+defaultArpTable.put(new IPAddressString("192.168.10.2/8").getAddress(), new MACAddressString("00:0a:95:9d:68:15").getAddress());
+defaultArpTable.put(new IPAddressString("192.168.10.4/8").getAddress(), new MACAddressString("00:0a:95:9d:68:14").getAddress());
             
-            c1.setArpTable(defaultArpTable);
-            c2.setArpTable(defaultArpTable);
-            c3.setArpTable(defaultArpTable);
+c1.setArpTable(defaultArpTable);
+c2.setArpTable(defaultArpTable);
+c3.setArpTable(defaultArpTable);
             
-            Switch aswitch = new Switch("S1");
-            aswitch.setPorts(new String[] {"g0/0",  "g0/1", "g0/2"});
+Switch aswitch = new Switch("S1");
+aswitch.setPorts(new String[] {"g0/0",  "g0/1", "g0/2"});
+
+c1.connectTo(aswitch, "f0/0", "g0/0");
+c2.connectTo(aswitch, "f0/0", "g0/1");
+c3.connectTo(aswitch, "f0/0", "g0/2");
             
-            c1.connectTo(aswitch, "f0/0", "g0/0");
-            c2.connectTo(aswitch, "f0/0", "g0/1");
-            c3.connectTo(aswitch, "f0/0", "g0/2");
-            
-            c1.ping(c2);
+c1.ping(c2);
 ```
 Output :
 ```
@@ -46,24 +46,24 @@ C2 (192.168.10.2/8) receives a ping request : Hello Network !
 
 Sans default ARP Table pour tous le Computers
 ```java
-            Computer c1 = new Computer("C1", "192.168.10.3/8", "00:0a:95:9d:68:16");
-            c1.setPorts(new String[] {"f0/0",  "f0/1"});
+Computer c1 = new Computer("C1", "192.168.10.3/8", "00:0a:95:9d:68:16");
+c1.setPorts(new String[] {"f0/0",  "f0/1"});
 
-            Computer c2 = new Computer("C2", "192.168.10.2/8", "00:0a:95:9d:68:15");
-            c2.setPorts(new String[] {"f0/0",  "f0/1"});
+Computer c2 = new Computer("C2", "192.168.10.2/8", "00:0a:95:9d:68:15");
+c2.setPorts(new String[] {"f0/0",  "f0/1"});
             
-            Computer c3 = new Computer("C3", "192.168.10.4/8", "00:0a:95:9d:68:14");
-            c3.setPorts(new String[] {"f0/0",  "f0/1"});
+Computer c3 = new Computer("C3", "192.168.10.4/8", "00:0a:95:9d:68:14");
+c3.setPorts(new String[] {"f0/0",  "f0/1"});
            
             
-            Switch aswitch = new Switch("S1");
-            aswitch.setPorts(new String[] {"g0/0",  "g0/1", "g0/2"});
+Switch aswitch = new Switch("S1");
+aswitch.setPorts(new String[] {"g0/0",  "g0/1", "g0/2"});
             
-            c1.connectTo(aswitch, "f0/0", "g0/0");
-            c2.connectTo(aswitch, "f0/0", "g0/1");
-            c3.connectTo(aswitch, "f0/0", "g0/2");
+c1.connectTo(aswitch, "f0/0", "g0/0");
+c2.connectTo(aswitch, "f0/0", "g0/1");
+c3.connectTo(aswitch, "f0/0", "g0/2");
             
-            c1.ping(c2);
+c1.ping(c2);
 ```
 Output :
 ```
